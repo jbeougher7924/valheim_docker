@@ -1,0 +1,5 @@
+# Ignore contents but keep the directories
+config/*
+!config/.gitkeep
+data/*
+!data/.gitkeep
