@@ -1,0 +1,26 @@
+services:
+  valheim:
+    image: ghcr.io/lloesche/valheim-server:latest
+    container_name: valheim
+    restart: unless-stopped
+    stop_grace_period: 2m
+    cap_add:
+      - sys_nice
+    environment:
+      - SERVER_NAME=${SERVER_NAME}
+      - WORLD_NAME=${WORLD_NAME}
+      - SERVER_PASS=${SERVER_PASS}
+      - SERVER_PUBLIC=${SERVER_PUBLIC}
+      - PUBLIC_TEST=${PUBLIC_TEST}
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - BACKUPS=${BACKUPS}
+      - BACKUPS_MAX_AGE=${BACKUPS_MAX_AGE}
+      - BACKUPS_MAX_COUNT=${BACKUPS_MAX_COUNT}
+    volumes:
+      - ${CONFIG_DIR}:/config
+      - ${DATA_DIR}:/opt/valheim
+    ports:
+      - "2456-2457:2456-2457/udp"
+      - "2458:2458/udp"   # only used if you later enable crossplay
